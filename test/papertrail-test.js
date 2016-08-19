@@ -125,14 +125,14 @@ describe('connection tests', function() {
       });
 
       pt.on('connect', function () {
-        pt.log('info', 'hello', function() {
+        pt.log('info', 'hello', {}, function() {
 
         });
       });
 
       listener = function(data) {
         should.exist(data);
-        data.toString().indexOf('default - - - info hello\r\n').should.not.equal(-1);
+        data.toString().indexOf('default - - - info: hello\r\n').should.not.equal(-1);
         done();
       }
     });
@@ -159,8 +159,7 @@ describe('connection tests', function() {
 
       listener = function (data) {
         should.exist(data);
-        data.toString().indexOf('default - - - info hello\r\n').should.not.equal(-1);
-        data.toString().indexOf('object').should.not.equal(-1);
+        data.toString().indexOf('default - - - info: hello meta=object\r\n').should.not.equal(-1);
         done();
       }
     });
@@ -187,8 +186,7 @@ describe('connection tests', function() {
 
       listener = function (data) {
         should.exist(data);
-        data.toString().indexOf('default - - - info hello\r\n').should.not.equal(-1);
-        data.toString().indexOf('object').should.not.equal(-1);
+        data.toString().indexOf('default - - - info: hello 0=object\r\n').should.not.equal(-1);
         done();
       }
     });
@@ -207,7 +205,7 @@ describe('connection tests', function() {
 
       pt.on('connect', function () {
         (function () {
-          pt.log('info', 'hello', null, function () {
+          pt.log('info', 'hello', {}, function () {
 
           });
         }).should.not.throw();
@@ -215,7 +213,7 @@ describe('connection tests', function() {
 
       listener = function (data) {
         should.exist(data);
-        data.toString().indexOf('default - - - info hello\r\n').should.not.equal(-1);
+        data.toString().indexOf('default - - - info: hello\r\n').should.not.equal(-1);
         done();
       }
     });
@@ -242,7 +240,7 @@ describe('connection tests', function() {
 
       listener = function (data) {
         should.exist(data);
-        data.toString().indexOf('default - - - info hello meta object\r\n').should.not.equal(-1);
+        data.toString().indexOf('default - - - info: hello meta object\r\n').should.not.equal(-1);
         done();
       }
     });
@@ -324,7 +322,7 @@ describe('connection tests', function() {
 
       listener = function (data) {
         should.exist(data);
-        data.toString().indexOf('default - - - info hello\r\n').should.not.equal(-1);
+        data.toString().indexOf('default - - - info: hello\r\n').should.not.equal(-1);
         done();
       }
     });
